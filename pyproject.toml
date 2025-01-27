@@ -1,0 +1,31 @@
+[tool.poetry]
+name = "imei-validation"
+version = "0.1.0"
+description = ""
+authors = ["m-a-bot <minnebaev.timur2015@yandex.ru>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+fastapi = "^0.115.7"
+pydantic = "^2.10.6"
+pydantic-settings = "^2.7.1"
+uvicorn = "^0.34.0"
+loguru = "^0.7.3"
+redis = "^5.2.1"
+
+[tool.poetry.group.dev.dependencies]
+isort = "^5.13.2"
+black = "^24.4.2"
+
+[tool.black]
+line-length = 79
+
+[tool.isort]
+src_paths = ["app"]
+line_length = 79
+profile = "black"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
