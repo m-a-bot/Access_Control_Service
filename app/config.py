@@ -13,6 +13,7 @@ class Settings(BaseSettings):
     FASTAPI_PORT: int
 
     TOKEN_TTL: int = 3600
+    WHITELIST_TTL: int = 1314000
 
     REDIS_HOST: str
     REDIS_PORT: int
