@@ -4,7 +4,7 @@ from app.config import settings
 
 async_redis = Redis(
     host=settings.REDIS_HOST,
-    port=6379,
+    port=settings.REDIS_PORT,
     username=settings.REDIS_USER,
     password=settings.REDIS_PASSWORD,
     decode_responses=True,

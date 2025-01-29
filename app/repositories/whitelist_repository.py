@@ -14,12 +14,18 @@ class WhitelistRepository:
 
     async def add_user(self, user: User):
         user_key = f"{WHITELIST_KEY}:{user.user_id}"
-        logging.info(f"set({user_key}, {user.user_name})")
-        await self._session.set(user_key, user.user_name)
+        return await self._session.set(user_key, user.user_name, nx=True)
 
     async def delete_user(self, user_id):
+        if await self._get_user(user_id) is None:
+            return None
         user_key = f"{WHITELIST_KEY}:{user_id}"
         result = await self._session.delete(user_key)
+        return result
+
+    async def _get_user(self, user_id: int):
+        user_key = f"{WHITELIST_KEY}:{user_id}"
+        return await self._session.get(user_key)
 
     async def check_access(self, user_id):
         user_key = f"{WHITELIST_KEY}:{user_id}"

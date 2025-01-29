@@ -1,5 +1,7 @@
 import secrets
 
+from fastapi import HTTPException
+
 from app.repositories.token_repository import TokenRepository
 
 
@@ -10,5 +12,7 @@ class TokenService:
 
     async def generate_token(self, user_id: int):
         token = secrets.token_hex(32)
-        await self._repository.add_token(user_id, token)
+        result = await self._repository.add_token(user_id, token)
+        if result is None:
+            return HTTPException(409, "Conflict")
         return token
