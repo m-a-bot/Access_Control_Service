@@ -14,5 +14,5 @@ class TokenService:
         token = secrets.token_hex(32)
         result = await self._repository.add_token(user_id, token)
         if result is None:
-            return HTTPException(409, "Conflict")
+            raise HTTPException(409, "Conflict")
         return token

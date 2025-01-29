@@ -14,7 +14,9 @@ class WhitelistRepository:
 
     async def add_user(self, user: User):
         user_key = f"{WHITELIST_KEY}:{user.user_id}"
-        return await self._session.set(user_key, user.user_name, nx=True)
+        return await self._session.set(
+            user_key, user.user_name, ex=settings.WHITELIST_TTL, nx=True
+        )
 
     async def delete_user(self, user_id):
         if await self._get_user(user_id) is None:
