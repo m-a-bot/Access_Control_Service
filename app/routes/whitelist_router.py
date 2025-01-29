@@ -15,16 +15,16 @@ async def add_to_whitelist(
     db=Depends(get_redis),
 ):
     user = User(user_id=user_id, user_name=user_name)
-    await WhitelistService(db).add_user(user)
+    return await WhitelistService(db).add_user(user)
 
 
 @whitelist_router.delete("/ban_user")
 async def remove_from_whitelist(
     user_id: int = Query(...), db=Depends(get_redis)
 ):
-    await WhitelistService(db).ban_user(user_id)
+    return await WhitelistService(db).ban_user(user_id)
 
 
 @whitelist_router.get("/check_access")
 async def check_access(user_id: int = Query(), db=Depends(get_redis)):
-    await WhitelistService(db).check_access(user_id)
+    return await WhitelistService(db).check_access(user_id)
